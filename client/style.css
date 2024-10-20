@@ -1,0 +1,73 @@
+/* General page styling */
+body {
+    background-color: #f8fafc;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Main container */
+#app-content {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 10px;
+}
+
+/* Input styles */
+input[type="text"], input[type="password"] {
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease-in-out, border-color 0.2s ease;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    outline: none;
+    border-color: #2563eb;
+}
+
+/* Button styles */
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #2563eb;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Message styling */
+#message {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.alert-success {
+    color: green;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+    color: red;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
