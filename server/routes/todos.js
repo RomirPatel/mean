@@ -31,7 +31,6 @@ router.post('/register', async (req, res) => {
     res.status(201).json({ message: 'User registered successfully' });
 });
 
-// Login Route
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
@@ -52,9 +51,10 @@ router.post('/login', async (req, res) => {
         return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Respond with success
-    res.status(200).json({ message: 'Login successful' });
+    // Respond with success and userId
+    res.status(200).json({ message: 'Login successful', userId: user._id });  // Include userId here
 });
+
 
 // Create a new to-do
 router.post('/', async (req, res) => {

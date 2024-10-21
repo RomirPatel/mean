@@ -4,29 +4,28 @@ $(document).ready(function () {
     const loginUrl = 'http://localhost:3000/api/todos/login';
     let currentUserId = null;
 
-    // Handle login
     $('#login-form').submit(function (e) {
         e.preventDefault();
-        const username = $('#username').val().trim(); // Trim the username
-        const password = $('#password').val().trim(); // Trim the password
+        const username = $('#username').val().trim();
+        const password = $('#password').val().trim();
 
-        // Send login request
         $.ajax({
             type: 'POST',
             url: loginUrl,
-            contentType: 'application/json', // Set content type to JSON
-            data: JSON.stringify({ username, password }), // Stringify the data
+            contentType: 'application/json',
+            data: JSON.stringify({ username, password }),
         })
         .done(function (data) {
-            currentUserId = data.userId; // Store the user ID
+            currentUserId = data.userId;  // Ensure this is correctly set
             $('#login-section').hide();
             $('#todo-app').show();
-            loadTodos();
+            loadTodos();  // Load the user's todos after login
         })
         .fail(function (xhr) {
-            alert(xhr.responseJSON ? xhr.responseJSON.message : "An error occurred"); // Show the error message
+            alert(xhr.responseJSON ? xhr.responseJSON.message : "An error occurred");
         });
     });
+
     $('#register-form').submit(function (e) {
         e.preventDefault();
         const regUsername = $('#reg-username').val();
@@ -75,17 +74,33 @@ $(document).ready(function () {
         });
     }
 
-    // Add a new todo
     $('#todo-form').submit(function (e) {
         e.preventDefault();
         const todoText = $('#todo-text').val();
-        const newTodo = { text: todoText, done: false, user: currentUserId };
 
-        $.post(apiUrl, newTodo, function () {
-            $('#todo-text').val('');
-            loadTodos();
+        if (!todoText || !currentUserId) {
+            alert("You must be logged in and provide a to-do text");
+            return;
+        }
+
+        const newTodo = { text: todoText, done: false, userId: currentUserId };
+
+        $.ajax({
+            type: 'POST',
+            url: apiUrl,
+            contentType: 'application/json',
+            data: JSON.stringify(newTodo),
+            success: function () {
+                $('#todo-text').val('');  // Clear the input
+                loadTodos();  // Reload the todos after adding
+            },
+            error: function (xhr) {
+                alert("Failed to add to-do");
+                console.error(xhr.responseText);
+            }
         });
     });
+
 
     // Toggle the done status of a todo
     window.toggleTodo = function (id, done) {
